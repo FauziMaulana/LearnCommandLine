@@ -1,3 +1,5 @@
+# Data Munging using the Command Line
+
 Objective
 ===========
 Practice the command line by munging datasets using just the command line.
@@ -80,3 +82,176 @@ Count and display the number of lines in combined_hud.csv containing 1980-1989.
     $ grep '1980-1989' combined_hud.csv | wc -l
     19711
 
+# Data Cleaning And Exploration Using Csvkit
+
+Objective
+===========
+Use the csvkit command line library to explore and clean CSV datasets.
+
+Data Sets
+===========
+The data sets come from U.S. Housing affordability from the [U.S. Department of Housing & Urban Development](http://www.huduser.org/portal/datasets/hads/hads.html)
+
+The data sets contains 3 files : Hud_2005.csv, Hud_2007.csv, Hud_2013.csv
+
+csvstack
+============
+
+Merge Hud_2005.csv, Hud_2007.csv, and Hud_2013.csv in that order into one file:
+
+    $ csvstack -n year -g 2005,2007,2013 Hud_2005.csv Hud_2007.csv hud_2013.csv > combined_hud.csv
+    $ head combined_hud.csv
+      1 year  CONTROL         AGE1  BEDRMS  PER  REGION  LMED    FMR    L30    L50     L80     IPOV   BUILT  STATUS  VACANCY  TENURE   NUNITS  TYPE  VALUE    ZINC2    ROOMS         ZADEQ  ZSMHC    WEIGHT        METRO3  STRUCTURETYPE  OWNRENT  UTILITY       OTHERCOST
+      2 2005  '100006110249'  43    3       1    '3'     47954   680    10359  17263   27615   9930   1980   '1'     -6       '1'      1       1     90000    20000    8             '1'    855      2916.5267516  '5'     1              '1'      160.16666667  33.333333333
+      3 2005  '100006370140'  44    4       5    '3'     47954   760    15988  26630   42607   23742  1985   '1'     -6       '1'      1       1     150000   71000    8             '1'    1317     2457.9881717  '5'     1              '1'      117           62.5
+      4 2005  '100006520140'  58    3       3    '3'     47954   680    13321  22194   35506   15364  1985   '1'     -6       '1'      1       1     187000   64729    6             '1'    1175     2454.8734738  '5'     1              '1'      135           61.75
+      5 2005  '100007130148'  22    1       1    '3'     56785   519    12104  20182   32291   9974   1980   '1'     -6       '2'      16      1     -6       27040    3             '2'    490      3543.6903963  '1'     3              '2'      64.75         0
+
+
+csvlook
+============
+
+csvlook tool parses CSV formatted data from it's stdin and outputs a pretty formatted table representation of that data to it's stdout:
+
+    $ head -10 combined_hud.csv | csvlook
+
+
+csvcut
+============
+
+explore individual column:
+
+    $ csvcut -n combined_hud.csv
+    1: year
+    2: CONTROL
+    3: AGE1
+    4: BEDRMS
+    5: PER
+    6: REGION
+    7: LMED
+    8: FMR
+    9: L30
+    10: L50
+    11: L80
+    12: IPOV
+    13: BUILT
+    14: STATUS
+    15: VACANCY
+    16: TENURE
+    17: NUNITS
+    18: TYPE
+    19: VALUE
+    20: ZINC2
+    21: ROOMS
+    22: ZADEQ
+    23: ZSMHC
+    24: WEIGHT
+    25: METRO3
+    26: STRUCTURETYPE
+    27: OWNRENT
+    28: UTILITY
+    29: OTHERCOST
+    30: COST06
+    31: COST12
+    32: COST08
+    33: COSTMED
+    34: TOTSAL
+    35: ASSISTED
+    36: GLMED
+    37: GL30
+    38: GL50
+    39: GL80
+    40: APLMED
+    41: ABL30
+    42: ABL50
+    43: ABL80
+    44: ABLMED
+    45: BURDEN
+    46: INCRELAMIPCT
+    47: INCRELAMICAT
+    48: INCRELPOVPCT
+    49: INCRELPOVCAT
+    50: INCRELFMRPCT
+    51: INCRELFMRCAT
+    52: COST06RELAMIPCT
+    53: COST06RELAMICAT
+    54: COST06RELPOVPCT
+    55: COST06RELPOVCAT
+    56: COST06RELFMRPCT
+    57: COST06RELFMRCAT
+    58: COST08RELAMIPCT
+    59: COST08RELAMICAT
+    60: COST08RELPOVPCT
+    61: COST08RELPOVCAT
+    62: COST08RELFMRPCT
+    63: COST08RELFMRCAT
+    64: COST12RELAMIPCT
+    65: COST12RELAMICAT
+    66: COST12RELPOVPCT
+    67: COST12RELPOVCAT
+    68: COST12RELFMRPCT
+    69: COST12RELFMRCAT
+    70: COSTMedRELAMIPCT
+    71: COSTMedRELAMICAT
+    72: COSTMedRELPOVPCT
+    73: COSTMedRELPOVCAT
+    74: COSTMedRELFMRPCT
+    75: COSTMedRELFMRCAT
+    76: FMTZADEQ
+    77: FMTMETRO3
+    78: FMTBUILT
+    79: FMTSTRUCTURETYPE
+    80: FMTBEDRMS
+    81: FMTOWNRENT
+    82: FMTCOST06RELPOVCAT
+    83: FMTCOST08RELPOVCAT
+    84: FMTCOST12RELPOVCAT
+    85: FMTCOSTMEDRELPOVCAT
+    86: FMTINCRELPOVCAT
+    87: FMTCOST06RELFMRCAT
+    88: FMTCOST08RELFMRCAT
+    89: FMTCOST12RELFMRCAT
+    90: FMTCOSTMEDRELFMRCAT
+    91: FMTINCRELFMRCAT
+    92: FMTCOST06RELAMICAT
+    93: FMTCOST08RELAMICAT
+    94: FMTCOST12RELAMICAT
+    95: FMTCOSTMEDRELAMICAT
+    96: FMTINCRELAMICAT
+    97: FMTASSISTED
+    98: FMTBURDEN
+    99: FMTREGION
+    100: FMTSTATUS
+    
+    $ csvcut -c 2 combined_hud.csv | head -10
+    CONTROL
+    '100006110249'
+    '100006370140'
+    '100006520140'
+    '100007130148'
+    '100007390148'
+    '100007540148'
+    '100008700141'
+    '100009170148'
+    '100010190149'
+    
+csvstat
+============
+
+calculate summary statistics for column:    
+
+    # Just the max value.
+    $ csvcut -c 2 combined_hud.csv | csvstat --max
+    # Just the mean value.
+    $ csvcut -c 2 combined_hud.csv | csvstat --mean
+    # Just the number of null values.
+    $ csvcut -c 2 combined_hud.csv | csvstat --nulls
+
+csvgrep
+============
+
+Searching all of the rows in the data set that match specific pattern to dive a bit deeper.
+
+    $ csvgrep -c 2 -m -9 Combined_hud.csv | head -10 | csvlook
+     
+    
