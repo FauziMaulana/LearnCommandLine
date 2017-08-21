@@ -6,7 +6,9 @@
 |------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | [Data Munging using the Command Line](#Data-Munging-using-the-Command-Line)                                      | Practice the command line by munging datasets using just the command line.Transforming data sets to make them easier to work with. |
 | [Data Cleaning And Exploration Using Csvkit](#Data-Cleaning-And-Exploration-Using-Csvkit)                        | Use the csvkit command line library to explore and clean CSV datasets.                                                             |
-| [Analyzing Hacker News Data by writing Python scripts](#Transform-and-work-with-data-by-writing-Python-scripts.) | Transform and work with data by writing Python scripts.                                                                            |# Data Munging using the Command Line
+| [Analyzing Hacker News Data by writing Python scripts](#Transform-and-work-with-data-by-writing-Python-scripts.) | Transform and work with data by writing Python scripts.                                                                            |
+
+# Data-Munging-using-the-Command-Line
 
 Objective
 ===========
@@ -90,7 +92,7 @@ Count and display the number of lines in combined_hud.csv containing 1980-1989.
     $ grep '1980-1989' combined_hud.csv | wc -l
     19711
 
-# Data Cleaning And Exploration Using Csvkit
+# Data-Cleaning-And-Exploration-Using-Csvkit
 
 Objective
 ===========
@@ -265,7 +267,7 @@ Searching all of the rows in the data set that match specific pattern to dive a 
 
 
 
-# Transform and work with data by writing Python scripts.
+# Transform-and-work-with-data-by-writing-Python-scripts.
 
 Objective
 ===========
