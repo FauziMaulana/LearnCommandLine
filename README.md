@@ -1,4 +1,12 @@
-# Data Munging using the Command Line
+<p align="center">
+  <img src="https://cdn.pixabay.com/photo/2013/07/13/13/41/bash-161382_960_720.png">
+  </p>
+
+| Notebook                                                                                                         | Definition                                                                                                                         |
+|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| [Data Munging using the Command Line](#Data-Munging-using-the-Command-Line)                                      | Practice the command line by munging datasets using just the command line.Transforming data sets to make them easier to work with. |
+| [Data Cleaning And Exploration Using Csvkit](#Data-Cleaning-And-Exploration-Using-Csvkit)                        | Use the csvkit command line library to explore and clean CSV datasets.                                                             |
+| [Analyzing Hacker News Data by writing Python scripts](#Transform-and-work-with-data-by-writing-Python-scripts.) | Transform and work with data by writing Python scripts.                                                                            |# Data Munging using the Command Line
 
 Objective
 ===========
@@ -254,4 +262,194 @@ Searching all of the rows in the data set that match specific pattern to dive a 
 
     $ csvgrep -c 2 -m -9 Combined_hud.csv | head -10 | csvlook
      
+
+
+
+# Transform and work with data by writing Python scripts.
+
+Objective
+===========
+
+Transform and work with Hacker News Data by writing Python scripts.
+
+Data Set
+===========
+The dataset was compiled by Arnaud Drizard using the Hacker News API, and can be found [here](https://github.com/arnauddri/hn). The dataset had removed all extraneous columns. The dataset only has four columns:
+
+| Column          | Description                                                                                                             |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------|
+| submission_time | when the story was submitted.                                                                                           |
+| upvotes         | number of upvotes the submission got.                                                                                   |
+| url             | the base domain of the submission.                                                                                      |
+| headline        | the headline of the submission. Users can edit this, and it doesn't have to match the headline of the original article. |
+
+Answering some interesting questions, like:
+•	What words appear most often in the headlines?
+
+•	What domains were submitted most often to Hacker News?
+
+•	At what times are the most articles submitted?
+
+Reading the Data
+================
+
+    $ nano read.py
+    $ python read.py
+                        submission_time         upvotes                          url
+            0     2014-10-23T22:57:47.000Z        1                     bignerdranch.com
+            1         2011-10-12T03:47:27Z        1                     thisismynext.com
+            2         2013-05-09T22:05:03Z        2                         theverge.com
+            3         2011-12-02T09:52:11Z        4                           github.com
+            4         2013-05-10T12:10:31Z        1                          shkspr.mobi
+            5         2013-07-30T13:47:48Z      200                       scala-lang.org
+            6         2012-06-13T05:58:28Z        1                        smartjava.org
+            7         2013-12-12T15:38:39Z        2                          keynude.com
+            8         2010-06-13T16:26:52Z        1                         cnewmark.com
+            9     2014-08-18T10:01:01.000Z        1                           coreos.com
+            10        2013-02-13T00:55:39Z       67                theatlanticcities.com
+
+                                               headline
+            0     New in Core Data and iOS 8: Asynchronous Fetching
+            1             Swype acquired by Nuance for $100 million
+            2     YouTube launches paid channels starting at $0....
+            3                         Arduino framework for node.js
+            4              It's The Little Things Which Make An App
+            5                              Brand new Scala-lang.org
+            6     REST: From GET to HATEOAS - How to create real...
+            7          Keynude is a naked theme for Apple Keynote.
+            8                          Why I'm a staffer and more
+            9        CoreOS is Linux for Massive Server Deployments
+            10    Cars and Robust Cities Are Fundamentally Incom...
+
+
+Which words appear in the Headlines often?
+==========================================
+
+Figuring out which words appear most often in the headlines. 
+
+    $ nano count.py
+    $ python count.py
+    [('the', 2114), ('to', 1689), ('a', 1325), ('of', 1191), ('for', 1179), ('in', 962), ('and', 951), ('how', 565), ('is', 558), ('on', 557), ('hn:', 541), ('with', 506), ('-', 461), ('your', 460), ('you', 388), ('ask', 365), ('new', 318), ('google', 286), ('from', 285), ('why', 267), ('what', 245), ('an', 238), ('by', 213), ('are', 213), ('show', 210), ('i', 204), ('web', 200), ('at', 199), ('-', 181), ('it', 177), ('do', 176), ('startup', 173), ('that', 162), ('facebook', 161), ('data', 158), ('app', 158), ('be', 157), ('free', 151), ('apple', 147), ('not', 147), ('can', 142), ('about', 137), ('as', 133), ('my', 133), ('will', 132), ('online', 127), ('now', 124), ('using', 121), ('should', 118), ('get', 117), ('up', 116), ('more', 111), ('or', 109), ('first', 106), ('best', 103), ('iphone', 103), ('we', 103), ('design', 102), ('business', 101), ('&', 101), ('|', 98), ('open', 97), ('time', 96), ('this', 96), ('internet', 95), ('have', 95), ('windows', 94), ('social', 94), ('android', 91), ('mobile', 90), ('has', 89), ('twitter', 88), ('its', 87), ('video', 86), ('out', 83), ('software', 83), ('ios', 81), ('all', 80), ('javascript', 80), ('make', 78), ('into', 77), ('phone', 77), ('us', 76), ('code', 76), ('use', 76), ('over', 75), ('like', 74), ('does', 74), ('big', 72), ('when', 71), ('top', 71), ('tech', 71), ('game', 71), ('startups', 69), ('than', 69), ('search', 69), ('world', 69), ('programming', 68), ('cloud', 68), ('one', 68)]
+
+
+Which Domains were submitted most often?
+==========================================
+
+Exploring which domains were submitted most often. 
+
+    $ nano domains.py
+    $ python domains.py
+    github.com: 163
+    techcrunch.com: 161
+    youtube.com: 152
+    nytimes.com: 105
+    arstechnica.com: 91
+    medium.com: 90
+    wired.com: 82
+    bbc.co.uk: 58
+    en.wikipedia.org: 57
+    gigaom.com: 43
+    theverge.com: 42
+    businessinsider.com: 40
+    online.wsj.com: 39
+    forbes.com: 37
+    readwriteweb.com: 36
+    theguardian.com: 34
+    thenextweb.com: 34
+    engadget.com: 31
+    mashable.com: 31
+    washingtonpost.com: 31
+    twitter.com: 31
+    news.cnet.com: 31
+    venturebeat.com: 28
+    economist.com: 27
+    google.com: 26
+    technologyreview.com: 25
+    facebook.com: 24
+    npr.org: 23
+    vimeo.com: 23
+    guardian.co.uk: 23
+    zdnet.com: 22
+    theatlantic.com: 21
+    reddit.com: 21
+    reuters.com: 19
+    kickstarter.com: 19
+    bloomberg.com: 18
+    gizmodo.com: 18
+    itworld.com: 17
+    slate.com: 17
+    slideshare.net: 17
+    money.cnn.com: 17
+    theregister.co.uk: 17
+    thehackernews.com: 16
+    bit.ly: 16
+    blogs.msdn.com: 15
+    blogs.wsj.com: 15
+    bits.blogs.nytimes.com: 15
+    businessweek.com: 15
+    sfgate.com: 14
+    cnn.com: 14
+    quora.com: 14
+    stackoverflow.com: 14
+    fastcompany.com: 13
+    code.google.com: 13
+    qz.com: 13
+    telegraph.co.uk: 13
+    news.bbc.co.uk: 13
+    pcworld.com: 13
+    networkworld.com: 13
+    spectrum.ieee.org: 12
+    avc.com: 12
+    news.yahoo.com: 12
+    newscientist.com: 12
+    appleinsider.com: 12
+    bbc.com: 12
+    plus.google.com: 12
+    infoq.com: 12
+    dailymail.co.uk: 11
+    blogs.hbr.org: 11
+    newyorker.com: 11
+    radar.oreilly.com: 11
+    huffingtonpost.com: 11
+    howtoforge.com: 11
+        macobserver.com: 11
+    infoworld.com: 10
+    linkedin.com: 10
+    computerworld.com: 10
+    allthingsd.com: 10
+    lifehacker.com: 10
+    betabeat.com: 10
+    techonomy.com: 10
+    torrentfreak.com: 10
+    ted.com: 10
+    ft.com: 9
+    itunes.apple.com: 9
+    inc.com: 9
+    daringfireball.net: 9
+    gist.github.com: 9
+    macrumors.com: 9
+    venturefizz.com: 8
+    pcmag.com: 8
+    fsf.org: 8
+    readwrite.com: 8
+    motherboard.vice.com: 8
+    salon.com: 8
+    xconomy.com: 8
+    computerworlduk.com: 8
+    buzzfeed.com: 8
+    datacenterknowledge.com: 8
     
+
+When are the most articles submitted?
+==========================================
+
+Figuring out when the most articles are submitted.
+
+    $ nano times.py
+    $ python times.py
+    18    666
+    15    637
+    17    636
+    16    595
+    14    582
+    Name: hour, dtype: int64
